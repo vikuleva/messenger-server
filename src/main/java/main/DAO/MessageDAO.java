@@ -1,7 +1,6 @@
-package DAO;
+package main.DAO;
 
-import models.Message;
-import models.Person;
+import main.models.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -27,7 +26,7 @@ public class MessageDAO {
         return mongoOperations.findAll(Message.class);
     }
 
-    public void remove(String id) {
-        mongoOperations.remove(Query.query(Criteria.where("id").is(id)), Message.class);
-    }
+//    public void remove(String id) {
+//        mongoOperations.remove(Query.query(Criteria.where("id").is(id)), Message.class);
+//    }
 }

@@ -9,7 +9,7 @@ public class Main{
     public static void main(String[] args){
         try {
             SpringApplication.run(Main.class, args);
-        }
+      }
         catch (Exception ex){
             System.out.println("Исключение"+ex+ex.getMessage());
         }

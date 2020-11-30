@@ -1,6 +1,6 @@
-package DAO;
+package main.DAO;
 
-import models.Person;
+import main.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -26,7 +26,7 @@ public class PersonDAO {
         return mongoOperations.findAll(Person.class);
     }
 
-    public void remove(String id) {
-        mongoOperations.remove(Query.query(Criteria.where("id").is(id)), Person.class);
-    }
+//    public void remove(String id) {
+//        mongoOperations.remove(Query.query(Criteria.where("id").is(id)), Person.class);
+//    }
 }

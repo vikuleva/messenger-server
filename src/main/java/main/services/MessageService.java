@@ -1,8 +1,7 @@
-package services;
+package main.services;
 
-import DAO.MessageDAO;
-import models.Message;
-import models.Person;
+import main.DAO.MessageDAO;
+import main.models.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,7 @@ public class MessageService {
         return messageDAO.getAll();
     }
 
-    public void remove(String id) {
-        messageDAO.remove(id);
-    }
+//    public void remove(String id) {
+//        messageDAO.remove(id);
+//    }
 }

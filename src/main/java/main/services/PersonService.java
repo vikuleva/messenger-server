@@ -1,7 +1,7 @@
-package services;
+package main.services;
 
-import DAO.PersonDAO;
-import models.Person;
+import main.DAO.PersonDAO;
+import main.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class PersonService {
         return personDAO.getAll();
     }
 
-    public void remove(String id) {
-        personDAO.remove(id);
-    }
+//    public void remove(String id) {
+//        personDAO.remove(id);
+//    }
 }
