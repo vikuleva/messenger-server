@@ -1,50 +1,51 @@
 package main.controllers;
+//import org.springframework.beans.factory.annotation.Autowired;
+import main.services.PersonService;
 import main.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import main.services.PersonService;
 
-@Controller
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+@RestController
 public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @RequestMapping(value = "/persons", method = RequestMethod.GET)
-    public ModelAndView showAll() {
-        ModelAndView modelAndView = new ModelAndView("all");
-
-        modelAndView.addObject("persons", personService.getAll());
-
-        return modelAndView;
+    @GetMapping(value = "/persons")
+    public ResponseEntity<?> read(){
+        final List<Person> persons = personService.getAll();
+        return persons!=null && !persons.isEmpty()?new ResponseEntity<Object>(persons, HttpStatus.OK):new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/addperson", method = RequestMethod.GET)
-    public ModelAndView showAddForm() {
-        return new ModelAndView("add_form", "person", new Person());
+    @PostMapping(value = "/createperson")
+    public ResponseEntity<?> add(@RequestBody Person person){
+
+        personService.add(person);
+        return new ResponseEntity<Object>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/addperson", method = RequestMethod.POST)
-    public String addContact(@ModelAttribute("person") Person person) {
-        if(person.getId() == null) personService.add(person);
-        else personService.update(person);
-
-        return "redirect:/";
+    @GetMapping(value = "/person/{id}")
+    public ResponseEntity<?> getById(@PathVariable(name="id")String id){
+        final Person person = personService.get(id);
+        return person!=null ? new ResponseEntity<Object>(person, HttpStatus.OK):new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/editperson", method = RequestMethod.GET)
-    public ModelAndView showEditForm(@RequestParam(required = true) String id) {
-        return new ModelAndView("add_form", "person", personService.get(id));
+    @DeleteMapping(value = "/person/{id}")
+    public ResponseEntity<?> remove(@PathVariable(name="id") String id){
+        final boolean deleted = true;
+        personService.remove(id);
+        return deleted ? new ResponseEntity<Object>(HttpStatus.OK): new ResponseEntity<Object>(HttpStatus.NOT_MODIFIED);
     }
 
-////    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-////    public String deleteContact(@RequestParam(required = true) String id) {
-////        personService.remove(id);
-//
-//        return "redirect:/";
+//    @PutMapping(value="/person/{id}")
+//    public ResponseEntity<?> update(@RequestBody Person person){
+//        final boolean updated = true;
+//        personService.update(person);
+//        return updated ? new ResponseEntity<Object>(HttpStatus.OK):new ResponseEntity<Object>(HttpStatus.NOT_MODIFIED);
 //    }
 }

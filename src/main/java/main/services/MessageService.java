@@ -13,13 +13,12 @@ public class MessageService {
     private MessageDAO messageDAO;
 
     public void add(Message message) {
-        message.setId(Message.COLLECTION_NAME);
         messageDAO.save(message);
     }
 
-    public void update(Message message) {
-        messageDAO.save(message);
-    }
+//    public void update(Message message) {
+//        messageDAO.save(message);
+//    }
 
     public Message get(String id) {
         return messageDAO.get(id);
@@ -30,7 +29,11 @@ public class MessageService {
         return messageDAO.getAll();
     }
 
-//    public void remove(String id) {
-//        messageDAO.remove(id);
-//    }
+    public void remove(String id) {
+        messageDAO.remove(id);
+    }
+
+    public  List<Message> getCorrespondence(String idFrom, String idTo){
+        return messageDAO.getCorrespondence(idFrom, idTo);
+    }
 }

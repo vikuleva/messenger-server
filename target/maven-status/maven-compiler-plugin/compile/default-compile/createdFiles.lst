@@ -1,9 +1,9 @@
-models\Person.class
-DAO\PersonDAO.class
-services\MessageService.class
-controllers\PersonController.class
-services\PersonService.class
-controllers\MessageController.class
-DAO\MessageDAO.class
+main\models\Message.class
+main\controllers\MessageController.class
+main\controllers\PersonController.class
+main\DAO\PersonDAO.class
+main\DAO\MessageDAO.class
+main\services\MessageService.class
+main\models\Person.class
 main\Main.class
-models\Message.class
+main\services\PersonService.class

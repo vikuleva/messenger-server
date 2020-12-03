@@ -1,51 +1,55 @@
 package main.controllers;
 
 import main.models.Message;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import main.services.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @RequestMapping(value = "/messages", method = RequestMethod.GET)
-    public ModelAndView showAll() {
-        ModelAndView modelAndView = new ModelAndView("all");
-
-        modelAndView.addObject("messages", messageService.getAll());
-
-        return modelAndView;
+    @GetMapping(value = "/messages")
+    public ResponseEntity<?> read(){
+        final List<Message> messages = messageService.getAll();
+        return messages!=null && !messages.isEmpty()?new ResponseEntity<Object>(messages, HttpStatus.OK):new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/addmessage", method = RequestMethod.GET)
-    public ModelAndView showAddForm() {
-        return new ModelAndView("add_form", "message", new Message());
+    @PostMapping(value = "/createmessage")
+    public ResponseEntity<?> add(@RequestBody Message message){
+
+        messageService.add(message);
+        return new ResponseEntity<Object>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/addmessage", method = RequestMethod.POST)
-    public String addContact(@ModelAttribute("message") Message message) {
-        if(message.getId() == null) messageService.add(message);
-        else messageService.update(message);
-
-        return "redirect:/";
+    @GetMapping(value = "/message/{id}")
+    public ResponseEntity<?> getById(@PathVariable(name="id")String id){
+        final Message message = messageService.get(id);
+        return message!=null ? new ResponseEntity<Object>(message, HttpStatus.OK):new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/editmessage", method = RequestMethod.GET)
-    public ModelAndView showEditForm(@RequestParam(required = true) String id) {
-        return new ModelAndView("add_form", "message", messageService.get(id));
+    @DeleteMapping(value = "/message/{id}")
+    public ResponseEntity<?> remove(@PathVariable(name="id") String id){
+        final boolean deleted = true;
+        messageService.remove(id);
+        return deleted ? new ResponseEntity<Object>(HttpStatus.OK): new ResponseEntity<Object>(HttpStatus.NOT_MODIFIED);
     }
 
-////    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-////    public String deleteContact(@RequestParam(required = true) String id) {
-////        messageService.remove(id);
-//
-//        return "redirect:/";
+//    @PutMapping(value="/message/{id}")
+//    public ResponseEntity<?> update(@RequestBody Message message){
+//        final boolean updated = true;
+//        messageService.update(message);
+//        return updated ? new ResponseEntity<Object>(HttpStatus.OK):new ResponseEntity<Object>(HttpStatus.NOT_MODIFIED);
 //    }
+
+    @GetMapping(value = "/messagefromto/{idFrom}/{idTo}")
+    public ResponseEntity<?> getCorrespondence(@PathVariable(name="idFrom") String idFrom, @PathVariable(name = "idTo")  String idTo ){
+        final List<Message> messages = messageService.getCorrespondence(idFrom,idTo);
+        return messages!=null && !messages.isEmpty()?new ResponseEntity<Object>(messages, HttpStatus.OK):new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+    }
 }

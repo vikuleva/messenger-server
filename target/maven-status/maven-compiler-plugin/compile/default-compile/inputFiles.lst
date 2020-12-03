@@ -1,9 +1,9 @@
-C:\Users\vikul\Desktop\m\server\src\main\java\models\Message.java
-C:\Users\vikul\Desktop\m\server\src\main\java\DAO\PersonDAO.java
-C:\Users\vikul\Desktop\m\server\src\main\java\services\PersonService.java
-C:\Users\vikul\Desktop\m\server\src\main\java\controllers\MessageController.java
-C:\Users\vikul\Desktop\m\server\src\main\java\controllers\PersonController.java
-C:\Users\vikul\Desktop\m\server\src\main\java\models\Person.java
-C:\Users\vikul\Desktop\m\server\src\main\java\services\MessageService.java
+C:\Users\vikul\Desktop\m\server\src\main\java\main\models\Person.java
+C:\Users\vikul\Desktop\m\server\src\main\java\main\DAO\PersonDAO.java
+C:\Users\vikul\Desktop\m\server\src\main\java\main\services\PersonService.java
+C:\Users\vikul\Desktop\m\server\src\main\java\main\DAO\MessageDAO.java
+C:\Users\vikul\Desktop\m\server\src\main\java\main\controllers\MessageController.java
 C:\Users\vikul\Desktop\m\server\src\main\java\main\Main.java
-C:\Users\vikul\Desktop\m\server\src\main\java\DAO\MessageDAO.java
+C:\Users\vikul\Desktop\m\server\src\main\java\main\controllers\PersonController.java
+C:\Users\vikul\Desktop\m\server\src\main\java\main\models\Message.java
+C:\Users\vikul\Desktop\m\server\src\main\java\main\services\MessageService.java

@@ -13,13 +13,10 @@ public class PersonService {
     private PersonDAO personDAO;
 
     public void add(Person person) {
-        person.setId(Person.COLLECTION_NAME);
         personDAO.save(person);
     }
 
-    public void update(Person person) {
-        personDAO.save(person);
-    }
+//    public void update(Person person) { personDAO.update(person); }
 
     public Person get(String id) {
         return personDAO.get(id);
@@ -29,7 +26,7 @@ public class PersonService {
         return personDAO.getAll();
     }
 
-//    public void remove(String id) {
-//        personDAO.remove(id);
-//    }
+    public void remove(String id) {
+        personDAO.remove(id);
+    }
 }

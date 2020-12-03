@@ -26,7 +26,11 @@ public class MessageDAO {
         return mongoOperations.findAll(Message.class);
     }
 
-//    public void remove(String id) {
-//        mongoOperations.remove(Query.query(Criteria.where("id").is(id)), Message.class);
-//    }
+    public void remove(String id) {
+        mongoOperations.remove(Query.query(Criteria.where("id").is(id)), Message.class);
+    }
+
+    public List<Message> getCorrespondence(String idFrom, String idTo){
+        return mongoOperations.find(Query.query(Criteria.where("idFrom").is(idFrom).where("idTo").is(idTo)),Message.class);
+    }
 }
