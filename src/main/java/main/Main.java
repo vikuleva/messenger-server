@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableAutoConfiguration
 @SpringBootApplication
 public class Main{
+
     public static void main(String[] args){
         try {
             SpringApplication.run(Main.class, args);

@@ -24,7 +24,8 @@ public class PersonController {
 
     @PostMapping(value = "/createperson")
     public ResponseEntity<?> add(@RequestBody Person person){
-
+        if(personService.getByPassword(person.getPassword())!=null)
+            return new ResponseEntity<Object>(HttpStatus.CONFLICT);
         personService.add(person);
         return new ResponseEntity<Object>(HttpStatus.CREATED);
     }
@@ -39,7 +40,13 @@ public class PersonController {
     public ResponseEntity<?> remove(@PathVariable(name="id") String id){
         final boolean deleted = true;
         personService.remove(id);
-        return deleted ? new ResponseEntity<Object>(HttpStatus.OK): new ResponseEntity<Object>(HttpStatus.NOT_MODIFIED);
+        return deleted ? new ResponseEntity<Object>(HttpStatus.OK): new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping(value = "/personByPassword/{password}/{name}")
+    public ResponseEntity<?> getPersonByPassword(@PathVariable(name="password") String password, @PathVariable(name="name") String name){
+        final Person person = personService.getByPasswordByName(password, name);
+        return person!=null ? new ResponseEntity<Object>(person, HttpStatus.OK):new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
     }
 
 //    @PutMapping(value="/person/{id}")

@@ -31,6 +31,6 @@ public class MessageDAO {
     }
 
     public List<Message> getCorrespondence(String idFrom, String idTo){
-        return mongoOperations.find(Query.query(Criteria.where("idFrom").is(idFrom).where("idTo").is(idTo)),Message.class);
+        return mongoOperations.find(Query.query(Criteria.where("idFrom").in(idFrom,idTo).andOperator(Criteria.where("idTo").in(idTo, idFrom))),Message.class);
     }
 }

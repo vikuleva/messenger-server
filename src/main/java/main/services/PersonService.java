@@ -29,4 +29,12 @@ public class PersonService {
     public void remove(String id) {
         personDAO.remove(id);
     }
+
+    public Person getByPasswordByName(String password, String name){
+       return  personDAO.getByPasswordByName(password, name);
+    }
+
+    public Person getByPassword(String password){
+        return  personDAO.getByPassword(password);
+    }
 }

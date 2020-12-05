@@ -36,4 +36,8 @@ public class PersonDAO {
     public void remove(String id) {
         mongoOperations.remove(Query.query(Criteria.where("id").is(id)), Person.class);
     }
+
+    public Person getByPasswordByName(String password, String name){return mongoOperations.findOne(Query.query(Criteria.where("password").is(password).andOperator(Criteria.where("name").is(name))), Person.class);}
+
+    public Person getByPassword(String password){return mongoOperations.findOne(Query.query(Criteria.where("password").is(password)), Person.class);}
 }
